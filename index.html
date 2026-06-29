@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="js/utils.js"></script>
+    <script defer src="js/state.js"></script>
+    <script defer src="js/crud.js"></script>
+    <script defer src="js/render.js"></script>
+    <script defer src="js/main.js"></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Personal Finance</p>
+        <h1>Expense Tracker</h1>
+      </div>
+      <button class="icon-button" id="themeToggle" type="button" aria-label="Switch theme" title="Switch theme">
+        <span id="themeIcon" aria-hidden="true">L</span>
+      </button>
+    </header>
+
+    <main class="app-shell">
+      <section class="summary-grid" aria-label="Financial summary">
+        <article class="summary-card balance-card">
+          <p>Current Balance</p>
+          <strong id="balanceAmount">₹0.00</strong>
+        </article>
+        <article class="summary-card income-card">
+          <p>Total Income</p>
+          <strong id="incomeAmount">₹0.00</strong>
+        </article>
+        <article class="summary-card expense-card">
+          <p>Total Expenses</p>
+          <strong id="expenseAmount">₹0.00</strong>
+        </article>
+      </section>
+
+      <section class="workspace-grid">
+        <section class="panel" aria-labelledby="formTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Entry</p>
+              <h2 id="formTitle">Add New Transaction</h2>
+            </div>
+            <button class="ghost-button hidden" id="cancelEditBtn" type="button">Cancel</button>
+          </div>
+
+          <form id="transactionForm" novalidate>
+            <div class="field">
+              <label for="labelInput">Label</label>
+              <input id="labelInput" name="label" type="text" maxlength="50" placeholder="Salary, groceries, rent" />
+              <small class="error-text" id="labelError"></small>
+            </div>
+
+            <div class="field">
+              <label for="amountInput">Amount</label>
+              <input id="amountInput" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" />
+              <small class="error-text" id="amountError"></small>
+            </div>
+
+            <fieldset class="type-field">
+              <legend>Type</legend>
+              <label>
+                <input type="radio" name="type" value="income" checked />
+                Income
+              </label>
+              <label>
+                <input type="radio" name="type" value="expense" />
+                Expense
+              </label>
+            </fieldset>
+
+            <div class="field">
+              <label for="categoryInput">Category</label>
+              <select id="categoryInput" name="category"></select>
+              <small class="error-text" id="categoryError"></small>
+            </div>
+
+            <div class="field">
+              <label for="dateInput">Date</label>
+              <input id="dateInput" name="date" type="date" />
+              <small class="error-text" id="dateError"></small>
+            </div>
+
+            <button class="primary-button" id="submitBtn" type="submit">Add Transaction</button>
+            <p class="success-text" id="formMessage" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="panel" aria-labelledby="transactionsTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">History</p>
+              <h2 id="transactionsTitle">Recent Transactions</h2>
+            </div>
+            <button class="danger-ghost-button" id="clearAllBtn" type="button">Reset</button>
+          </div>
+
+          <div class="filters" aria-label="Transaction filters">
+            <div class="field">
+              <label for="searchInput">Search</label>
+              <input id="searchInput" type="search" placeholder="Find by label" />
+            </div>
+            <div class="field">
+              <label for="typeFilter">Type</label>
+              <select id="typeFilter">
+                <option value="all">All types</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="categoryFilter">Category</label>
+              <select id="categoryFilter">
+                <option value="all">All categories</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="transaction-list" id="transactionList" aria-live="polite"></div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
